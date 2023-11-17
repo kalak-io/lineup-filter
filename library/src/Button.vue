@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import { Size } from './interfaces/props';
+
 interface ButtonProps {
-  size?: 'small' | 'medium' | 'large',
-  showLabel: boolean
+  size?: Size,
+  label?: string,
+  showLabel?: boolean
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   size: 'medium',
-  showLabel: true
+  showLabel: true,
+  label: 'Filter'
 });
 
 const emit = defineEmits<{
   (e: 'click', id: number): void;
 }>();
+
+const onClick = () => {
+  emit("click", 1)
+};
 
 const buttonClasses = computed(() => ({
   'filter-button': true,
@@ -28,20 +36,14 @@ const iconClasses = computed(() => ({
 const labelClasses = computed(() => ({
   [`filter-button-label--${props.size}`]: true,
 }));
-
-const onClick = () => {
-  emit("click", 1)
-};
 </script>
 
 <template>
   <button type="button" :class="buttonClasses" @click="onClick">
       <span :class="iconClasses">+</span>
       <span :class="labelClasses" v-if="showLabel">
-        <slot>
-          Filter
-        </slot>
-        </span>
+        {{ label }}
+      </span>
   </button>
 </template>
 
