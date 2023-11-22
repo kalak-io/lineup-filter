@@ -4,7 +4,7 @@ import Dropdown from '../src/Dropdown.vue';
 
 const meta = {
     title: 'Base/Dropdown',
-    component: Dropdown,
+    component: {Dropdown},
     // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/vue/writing-docs/autodocs
     tags: ['autodocs'],
     argTypes: {

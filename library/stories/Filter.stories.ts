@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import DisplayFilters from '../src/DisplayFilters.vue';
+import Filter from '../src/Filter.vue';
 
 const meta = {
-  title: 'Main/DisplayFilters',
-  component: DisplayFilters,
+  title: 'Main/Filter',
+  component: Filter,
   tags: ['autodocs'],
   argTypes: {
     size: {
@@ -14,7 +14,7 @@ const meta = {
       options: ["small", 'medium', 'large']
     }
   }
-} satisfies Meta<typeof DisplayFilters>;
+} satisfies Meta<typeof Filter>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
