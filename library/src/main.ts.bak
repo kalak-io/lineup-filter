@@ -1,0 +1,32 @@
+import type { App } from "vue";
+import {
+  ActiveFilter,
+  ActiveFilters,
+  Button,
+  Dropdown,
+  DropdownMainMenu,
+  DropdownTextMenu,
+  Filter,
+} from "@/src";
+
+export default {
+  install: (app: App) => {
+    app.component("ActiveFilter", ActiveFilter);
+    app.component("ActiveFilters", ActiveFilters);
+    app.component("Button", Button);
+    app.component("Dropdown", Dropdown);
+    app.component("DropdownMainMenu", DropdownMainMenu);
+    app.component("DropdownTextMenu", DropdownTextMenu);
+    app.component("Filter", Filter);
+  },
+};
+
+export {
+  ActiveFilter,
+  ActiveFilters,
+  Button,
+  Dropdown,
+  DropdownMainMenu,
+  DropdownTextMenu,
+  Filter,
+};

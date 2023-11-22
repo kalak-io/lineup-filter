@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { Size } from './interfaces/props';
+import { Size } from './interfaces/props.ts';
 
 interface ButtonProps {
   size?: Size,
