@@ -1,13 +1,16 @@
 {
   "name": "lineup-filter",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "files": [
     "dist"
   ],
   "main": "./dist/lineup-filter.umd.cjs",
   "module": "./dist/lineup-filter.js",
+  "engines": {
+    "node": ">=0.10.3 <0.12"
+  },
   "exports": {
     ".": {
       "import": "./dist/lineup-filter.js",
@@ -22,7 +25,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "@typescript-eslint/parser": "^6.12.0",
+    "vue": "^3.3.8"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.5.3",
@@ -32,12 +36,20 @@
     "@storybook/testing-library": "^0.2.2",
     "@storybook/vue3": "^7.5.3",
     "@storybook/vue3-vite": "^7.5.3",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@vitejs/plugin-vue": "^4.2.3",
+    "eslint": "^8.54.0",
+    "eslint-config-standard-with-typescript": "^40.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-n": "^16.3.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-vue": "^9.18.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.5.3",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.0",
+    "vite-plugin-checker": "^0.6.2",
     "vue-tsc": "^1.8.5"
   }
 }
