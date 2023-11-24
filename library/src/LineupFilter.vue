@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import DropdownMenu from './DropdownMenu.vue';
 import ActiveFilters from './ActiveFilters.vue'
 
-import { Filters, ActiveFilter, ActiveFilters as InterfaceActiveFilters } from
+import { Filters, ActiveFilters as InterfaceActiveFilters } from
 './interfaces/filter.ts';
 import { Size } from './interfaces/props.ts';
 
@@ -26,27 +26,22 @@ withDefaults(defineProps<FilterProps>(), {
 
 const activeFilters = ref<InterfaceActiveFilters>([])
 
-const handleChoose = (filter) => {
-  // TODO:
-  // - assign value key
-  // - assign condition key
-  // these assignations could be do in dedicated component by type
-  const activeFilter: ActiveFilter = { ...filter };
-  activeFilters.value.push(activeFilter);
-};
-
 </script>
 
 <template>
   <DropdownMenu
+    v-model="activeFilters"
     :size="size"
     :filters="filters"
-    @choose="handleChoose"
   />
   <ActiveFilters
+    v-model="activeFilters"
     :size="size"
-    :active-filters="activeFilters"
   />
+  <b>ActiveFilters</b>
+  <br />
+  {{ activeFilters }}
+  <br />
 </template>
 
 <style scoped></style>

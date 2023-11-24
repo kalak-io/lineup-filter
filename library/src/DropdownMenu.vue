@@ -8,20 +8,33 @@ import DropdownMenuOptionsList from './DropdownMenuOptionsList.vue';
 import DropdownMenuOptionsDate from './DropdownMenuOptionsDate.vue';
 
 import { Size } from './interfaces/props.ts';
-import { ActiveFilter, Filters } from './interfaces/filter.ts';
+import { ActiveFilter, ActiveFilters, Filters } from './interfaces/filter.ts';
 
 
 interface DropdownProps {
   size?: Size,
-  filters: Filters
+  filters: Filters,
+  modelValue: ActiveFilters
 }
 
-withDefaults(defineProps<DropdownProps>(), {
+const props = withDefaults(defineProps<DropdownProps>(), {
   size: 'medium',
+  modelValue: []
 });
 
+const emit = defineEmits(['update:modelValue'])
+
 const isOpen = ref<boolean>(false);
-const choice = ref<ActiveFilter>();
+const choice = ref<ActiveFilter>({});
+
+const choices = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    emit('update:modelValue', value)
+  }
+});
 
 const currentComponent = computed(() => {
   switch (choice?.value?.type) {
@@ -36,18 +49,9 @@ const currentComponent = computed(() => {
   }
 });
 
-const emit = defineEmits<{
-  (e: 'choose', filter: Filter)
-}>();
-
-const selectFilter = (filter) => {
-  // TODO: load the right component to use set value and condition
-  // - create a DropdownPrimaryMenu : list all filters
-  // - create a Dropdown{List,Text,Date}Menu : component to set a value
-  // - emit an activeFilter
-  emit("choose", filter)
-  //isOpen.value = false
-  choice.value = filter
+const addChoice = (choice) => {
+  choices.value = [...choices.value, choice]
+  isOpen.value = false
 }
 
 </script>
@@ -67,7 +71,9 @@ const selectFilter = (filter) => {
     >
       <component
         :is="currentComponent"
+        v-model="choice"
         :filters="filters"
+        @validate="addChoice"
       />
     </div>
   </div>
