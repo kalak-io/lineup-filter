@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import Dropdown from './Dropdown.vue';
+import { ref } from 'vue';
+
+import DropdownMenu from './DropdownMenu.vue';
 import ActiveFilters from './ActiveFilters.vue'
+
 import { Filters, ActiveFilter, ActiveFilters as InterfaceActiveFilters } from
 './interfaces/filter.ts';
 import { Size } from './interfaces/props.ts';
@@ -17,40 +19,8 @@ interface FilterProps {
 // - emit the result of activeFilters on this list
 // => it could be a vmodel
 
-const props = withDefaults(defineProps<FilterProps>(), {
+withDefaults(defineProps<FilterProps>(), {
   size: 'medium',
-  filters: [
-  {
-    id: 'status',
-    label: 'Statut',
-    type: 'list',
-    icon: 'circle',
-    options: [
-      {
-        label: 'En traitement...',
-        icon: 'circle',
-      },
-    ],
-  },
-  {
-    id: 'name',
-    label: 'Nom',
-    type: 'text',
-    icon: 'search',
-  },
-  {
-    id: 'creation_date',
-    label: 'Date de création',
-    type: 'date',
-    icon: 'calendar',
-  },
-  {
-    id: 'last_update_date',
-    label: 'Date de modification',
-    type: 'date',
-    icon: 'calendar',
-  },
-  ]
 });
 
 
@@ -68,8 +38,15 @@ const handleChoose = (filter) => {
 </script>
 
 <template>
-  <Dropdown :size="size" :filters="filters" @choose="handleChoose" />
-  <ActiveFilters :size="size" :active-filters="activeFilters" />
+  <DropdownMenu
+    :size="size"
+    :filters="filters"
+    @choose="handleChoose"
+  />
+  <ActiveFilters
+    :size="size"
+    :active-filters="activeFilters"
+  />
 </template>
 
 <style scoped></style>

@@ -6,7 +6,7 @@ import { Filter, Filters } from './interfaces/filter';
 interface DropdownMainMenuProps {
     filters: Filters,
     modelValue: Filter
-};
+}
 
 const props = withDefaults(defineProps<DropdownMainMenuProps>(), {
     size: 'medium',
@@ -27,15 +27,15 @@ const value = computed({
 </script>
 
 <template>
-    <ul class="dropdown-menu">
-        <li
-            v-for="filter in filters"
-            :key="filter.id"
-            @click="value = filter"
-            >
-            {{ filter.label }}
-        </li>
-    </ul>
+  <ul class="dropdown-menu">
+    <li
+      v-for="filter in filters"
+      :key="filter.id"
+      @click="value = filter"
+    >
+      {{ filter.label }}
+    </li>
+  </ul>
 </template>
 
 

@@ -27,10 +27,11 @@ const value = computed({
 </script>
 
 <template>
-  <input v-model.trim="value"
-    :placeholder="value.label"
+  <input
     :id="value.id"
-    :type='value.type'
+    v-model.trim="value"
     v-model="value"
-  />
+    :placeholder="value.label"
+    :type="value.type"
+  >
 </template>

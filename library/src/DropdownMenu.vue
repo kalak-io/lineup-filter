@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-import Button from './Button.vue';
-import DropdownMainMenu from './DropdownMainMenu.vue';
-import DropdownTextMenu from './DropdownTextMenu.vue';
+import BaseButton from './BaseButton.vue';
+import DropdownMenuOptions from './DropdownMenuOptions.vue';
+import DropdownMenuOptionsText from './DropdownMenuOptionsText.vue';
+import DropdownMenuOptionsList from './DropdownMenuOptionsList.vue';
+import DropdownMenuOptionsDate from './DropdownMenuOptionsDate.vue';
 
 import { Size } from './interfaces/props.ts';
 import { ActiveFilter, Filters } from './interfaces/filter.ts';
@@ -12,52 +14,27 @@ import { ActiveFilter, Filters } from './interfaces/filter.ts';
 interface DropdownProps {
   size?: Size,
   filters: Filters
-};
+}
 
-const props = withDefaults(defineProps<DropdownProps>(), {
+withDefaults(defineProps<DropdownProps>(), {
   size: 'medium',
-  filters: [
-    {
-      id: 'status',
-      label: 'Statut',
-      type: 'list',
-      icon: 'circle',
-      options: [
-        {
-          label: 'En traitement...',
-          icon: 'circle',
-        },
-      ],
-    },
-    {
-      id: 'name',
-      label: 'Nom',
-      type: 'text',
-      icon: 'search',
-    },
-    {
-      id: 'creation_date',
-      label: 'Date de création',
-      type: 'date',
-      icon: 'calendar',
-    },
-    {
-      id: 'last_update_date',
-      label: 'Date de modification',
-      type: 'date',
-      icon: 'calendar',
-    },
-
-  ]
 });
 
 const isOpen = ref<boolean>(false);
 const choice = ref<ActiveFilter>();
 
-const displayMainMenu = computed(() => isOpen.value && !choice.value);
-const displayTextMenu = computed(() => isOpen.value && choice.type === 'text');
-const displayListMenu = computed(() => isOpen.value && choice.type === 'list');
-const displayDateMenu = computed(() => isOpen.value && choice.type === 'date');
+const currentComponent = computed(() => {
+  switch (choice?.value?.type) {
+    case 'text':
+      return DropdownMenuOptionsText;
+    case 'list':
+      return DropdownMenuOptionsList;
+    case 'data':
+      return DropdownMenuOptionsDate;
+    default:
+      return DropdownMenuOptions;
+  }
+});
 
 const emit = defineEmits<{
   (e: 'choose', filter: Filter)
@@ -79,11 +56,19 @@ const selectFilter = (filter) => {
 <template>
   <div class="dropdown">
     <slot name="trigger">
-    <Button :size="size" @click="isOpen = !isOpen"/>
+      <BaseButton
+        :size="size"
+        @click="isOpen = !isOpen"
+      />
     </slot>
-    <div class="dropdown-menu">
-      <DropdownMainMenu v-if="displayMainMenu" :filters="filters" v-model="choice" />
-      <DropdownTextMenu v-else-if="displayTextMenu" v-model="choice:value" />
+    <div
+      v-if="isOpen"
+      class="dropdown-menu"
+    >
+      <component
+        :is="currentComponent"
+        :filters="filters"
+      />
     </div>
   </div>
 </template>

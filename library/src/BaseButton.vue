@@ -39,11 +39,18 @@ const labelClasses = computed(() => ({
 </script>
 
 <template>
-  <button type="button" :class="buttonClasses" @click="onClick">
-      <span :class="iconClasses">+</span>
-      <span :class="labelClasses" v-if="showLabel">
-        {{ label }}
-      </span>
+  <button
+    type="button"
+    :class="buttonClasses"
+    @click="onClick"
+  >
+    <span :class="iconClasses">+</span>
+    <span
+      v-if="showLabel"
+      :class="labelClasses"
+    >
+      {{ label }}
+    </span>
   </button>
 </template>
 
