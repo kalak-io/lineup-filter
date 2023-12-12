@@ -45,7 +45,18 @@ const data= ref([])
     :filters="filters"
     :data="data"
   />
+  <b>
+    Filtered elements
+  </b>
+  <ul>
+    <li
+      v-for="element, index in data"
+      :key="index"
+    >
+      {{ element }}
+    </li>
+  </ul>
 </template>
 
-<style>
+<style scoped>
 </style>
