@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 import BaseButton from './BaseButton.vue';
 import DropdownMenuOptions from './DropdownMenuOptions.vue';
@@ -47,6 +47,10 @@ const currentComponent = computed(() => {
     default:
       return DropdownMenuOptions;
   }
+});
+
+watch(isOpen, (value) => {
+  if (!value) choice.value = {};
 });
 
 const addChoice = (choice) => {
